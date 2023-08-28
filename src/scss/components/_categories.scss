@@ -1,0 +1,51 @@
+@import '../variables.scss';
+
+.categories {
+  ul {
+    display: flex;
+    max-width: 100%;
+    @media (max-width: 1250px) {
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 950px) {
+      text-align: center;
+      justify-content: center;
+    }
+   
+    li {
+      background-color: #f9f9f9;
+      padding: 13px 30px;
+      border-radius: 30px;
+      margin-right: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.1s ease-in-out;
+      @media (max-width: 1250px) {
+        margin-bottom: 20px;
+      }
+      @media (max-width: 950px) {
+        min-width: 176px;
+        text-align: center;
+      }
+      @media (max-width: 513px) {
+        margin-right: 0px;
+        margin-bottom: 10px;
+      }
+      @include noselect();
+
+      &:hover {
+        background-color: darken(#f9f9f9, 2%);
+      }
+
+      &:active {
+        background-color: darken(#f9f9f9, 5%);
+      }
+
+      &.active {
+        background-color: #282828;
+        color: #fff;
+      }
+    }
+  }
+}

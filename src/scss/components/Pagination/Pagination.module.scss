@@ -1,0 +1,60 @@
+    .root {
+        text-align: center;
+        display: flex;
+        width: 300px;
+        margin: 0 auto;
+        justify-content: space-between;
+        @media (max-width:440px) {
+            justify-content: center;
+            gap: 0 20px;
+            width: 250px;
+        }
+        :global {
+            .selected {
+                 background-color: rgba(251,89,23,255);
+                 a {
+                    color: white;
+                   
+                 }
+                 
+            }
+        }
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(251,89,23,255);
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            transition-duration: 0.3s;
+            @media (max-width:440px) {
+            width: 30px;
+            height: 30px;
+            }
+            &:hover {
+                background-color: rgba(251,89,23,255);
+                color: white;
+                a {
+                    color: white;
+                  
+                }
+            }
+            a {
+                color: rgba(251,89,23,255);
+                transition-duration: 0.3s;
+                font-size: 20px;
+                position: absolute;
+                width: 100%;
+                bottom: -3px;
+                height: 100%;
+                @media (max-width:440px) {
+                        font-size: 15px;;
+                    }
+            }
+           
+        }
+        
+    }

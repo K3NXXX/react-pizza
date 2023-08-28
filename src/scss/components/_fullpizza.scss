@@ -1,0 +1,28 @@
+.fullpizza__wrapper {
+    display: flex;
+    img {
+        max-width: 500px;
+        margin-right: 100px;
+    }
+    div {
+        display: flex;
+        h2 {
+            font-size: 50px;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+        p {
+            font-size: 50px;
+        }
+    }
+    .fullpizaa__wrapperInner {
+        display: flex;
+        flex-direction: column;
+        .button2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 30px;
+        }
+    }
+}
