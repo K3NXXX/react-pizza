@@ -1,6 +1,9 @@
 import ReactPaginate from 'react-paginate';
 import style from "./Pagination.module.scss"
-const Pagination = ({onChangePage}) => {
+type PaginationProps = {
+  onChangePage: (page:number) => void;
+}
+const Pagination:React.FC<PaginationProps> = ({onChangePage}) => {
     return (  
         <ReactPaginate className={style.root}
           breakLabel="..."

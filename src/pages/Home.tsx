@@ -1,34 +1,31 @@
 import "../scss/app.scss"
-import Categories from "../../src/scss/components/Categories";
-import PizzaBlock from "../../src/scss/components/PizzaBlock/PizzaBlock";
-import Skeleton from "../../src/scss/components/PizzaBlock/Skeleton";
+import Categories from "../scss/components/Categories";
+import PizzaBlock from "../scss/components/PizzaBlock/PizzaBlock";
+import Skeleton from "../scss/components/PizzaBlock/Skeleton";
 import { useEffect, useState, useContext, useRef } from "react";
 import Pagination from "../scss/components/Pagination/Pagination";
-import {SearchContext} from "../App"
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryId, setFilters, setPageCount } from "../redux/slices/filterSlice";
+import { FilterSliceState, setCategoryId, setFilters, setPageCount } from "../redux/slices/filterSlice";
 import qs from "qs";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { setItems } from "../redux/slices/pizzasSlice";
+import { RootState } from "../redux/store";
 
-
-const Home = () => {
+const Home:React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const isSearch = useRef(false)
     const isMounted = useRef(false)
-    const categoryId = useSelector((state) => state.filterSlice.categoryId)
-    const currentPage = useSelector((state) => state.filterSlice.currentPage)
-    const {items} = useSelector(state => state.pizzasSlice)
-
-    const {searchValue} = useContext(SearchContext)
-      
+    const categoryId = useSelector((state:RootState) => state.filterSlice.categoryId)
+    const currentPage = useSelector((state: RootState) => state.filterSlice.currentPage)
+    const {items} = useSelector((state: RootState) => state.pizzasSlice)
+    const searchValue = useSelector((state:RootState) => state.filterSlice.searchValue)
     const [isloading, setIsLoading] = useState(true)
-    const onChangePage = (page) => {
+    const onChangePage = (page:number) => {
       dispatch(setPageCount(page))
     }
-    const fetchPizzas = async () => { // завдяки async await код з асинхронного став синхронним, тобто інший код чекає на виконання коду в async await
+    const fetchPizzas = async () => { 
       setIsLoading(true)
       const category = categoryId > 0 ? `category=${categoryId}` : ""
       const search = searchValue ? `&search=${searchValue}` : ""
@@ -51,13 +48,19 @@ const Home = () => {
       }
     }
     
-    useEffect(() => { // при перезагрузці сторінки, щоб були ті самі дані з qs
-      if(window.location.search) {
-        const params = qs.parse(window.location.search.substring(1))
-        dispatch(setFilters({...params}))
-        isSearch.current = true
+    useEffect(() => {
+      if (window.location.search) {
+        const parsedParams: qs.ParsedQs = qs.parse(window.location.search.substring(1));
+        const mappedParams: Partial<FilterSliceState> = {
+          searchValue: parsedParams.searchValue as string || '',
+          categoryId: Number(parsedParams.categoryId) || 0,
+          currentPage: Number(parsedParams.currentPage) || 1,
+        };
+    
+        dispatch(setFilters(mappedParams as FilterSliceState));
+        isSearch.current = true;
       }
-    }, [dispatch])
+    }, [dispatch]);
     useEffect(() => { // useEffect дивися за цим кодом, і після 1 рендерингу ніколи його більше не викликай
       window.scrollTo(0,0)
       if (!isSearch.current) {
@@ -79,13 +82,7 @@ const Home = () => {
       isMounted.current = true
     }, [categoryId, currentPage, navigate])
     // -------------qs----------
-    const pizzas = items
-    // .filter((obj) => {
-    //   if(obj.title.toLowerCase().includes(searchValue)) { фільтрація
-    //     return true
-    //   }
-    //   return false})
-      .map((pizza) => <li  key={pizza.id} to={`/pizza/${pizza.id}`}><PizzaBlock {...pizza} /></li>)
+    const pizzas = items.map((pizza:any) => <li  key={pizza.id}><PizzaBlock {...pizza} /></li>)
     const skeleton = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
 
   return (
@@ -94,7 +91,6 @@ const Home = () => {
         <Categories categoryId={categoryId} onClickCategory = {(id) => {
           dispatch(setCategoryId(id))
         }}  />
-        {/* <Sort /> */}
       </div>
       <h2 className="content__title">Всі піци</h2>
       <div className="content__items">

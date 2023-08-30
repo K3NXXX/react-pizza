@@ -3,10 +3,11 @@ import logo from "../../assets/img/pizza-logo.svg"
 import Search from "./Search/Search"
 import { useSelector } from "react-redux"
 import { useEffect, useRef } from "react"
+import { RootState } from "../../redux/store"
 
 function Header() {
-  const {items, totalPrice} = useSelector(state => state.cartSlice)
-  const totalCount = items.reduce((sum,item) => sum + item.count, 0)
+  const {items, totalPrice} = useSelector((state:RootState) => state.cartSlice)
+  const totalCount = items.reduce((sum: number,item: any ) => sum + item.count, 0)
   const isMounted = useRef(false)
   useEffect(() => {
     if(isMounted) {
@@ -21,7 +22,7 @@ function Header() {
     <div className="header">
     <div className="container">
       <div className="logoSearch__wrapper">
-      <Link to="/">
+      <Link to="/react-pizza">
         <div className="header__logo">
             <img width="38" src={logo} alt="Pizza logo" />
             <div>
@@ -32,7 +33,7 @@ function Header() {
         </Link>
         <Search />
       </div>
-      <Link to="/cart">
+      <Link to="/react-pizza/cart">
         <div className="header__cart">
           <a href="/cart.html" className="button button--cart">
             <span>{totalPrice} ₴</span>

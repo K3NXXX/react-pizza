@@ -17,7 +17,7 @@ body {
 }
 
 .content {
-  padding: 40px 0;
+  padding: 40px 15px;
   @media (max-width: 513px) {
     padding: 20px 0;
   }
@@ -83,6 +83,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (max-width:520px) {
+      flex-direction: column;
+      gap: 30px 0;
+    }
   }
   p {
     max-width: 700px;
@@ -155,16 +159,28 @@ body {
     border-top: 1px solid $gray-line;
     padding-top: 30px;
     margin-top: 30px;
+    @media (max-width:828px) {
+      flex-direction: column;
+      align-items: center;
+    }
 
     &-img {
       display: flex;
       align-items: center;
       margin-right: 15px;
       width: 10%;
+      @media (max-width:828px) {
+        margin-right: -10px;
+        width: auto;
+      }
+    
 
       img {
         width: 80px;
-        height: 80px;
+        @media (max-width:828px) {
+          min-width: 200px;
+          max-width: 200px;
+        }
       }
     }
 
@@ -173,17 +189,30 @@ body {
       flex-direction: column;
       justify-content: center;
       width: 40%;
+      @media (max-width:828px) {
+        text-align: center;
+        align-items: center;
+      }
 
       h3 {
         font-weight: bold;
         font-size: 22px;
         line-height: 27px;
         letter-spacing: 0.01em;
+        @media (max-width:1000px) {
+          max-width: 200px;
+        }
+        @media (max-width:828px) {
+          margin-bottom: 10px;
+        }
       }
 
       p {
         font-size: 18px;
         color: #8d8d8d;
+        @media (max-width:828px) {
+          margin-bottom: 10px;
+        }
       }
     }
 
@@ -191,7 +220,10 @@ body {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 13%;
+      gap: 0 15px;
+      @media (max-width:828px) {
+        margin-bottom: 10px;
+      }
 
       &-minus {
         svg {
@@ -211,6 +243,9 @@ body {
       align-items: center;
       justify-content: center;
       width: 33%;
+      @media (max-width:828px) {
+        margin-bottom: 10px;
+      }
 
       b {
         font-weight: bold;
@@ -223,7 +258,7 @@ body {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      width: 4%;
+      
 
       .button {
         border-color: darken($color: $gray-line, $amount: 10);
@@ -258,9 +293,16 @@ body {
     &-details {
       display: flex;
       justify-content: space-between;
+      @media (max-width:644px) {
+        flex-direction: column;
+        align-items: center;
+      }
 
       span {
         font-size: 22px;
+        @media (max-width:520px) {
+          font-size: 18px;
+        }
 
         &:last-of-type {
           b {
@@ -274,6 +316,11 @@ body {
       display: flex;
       justify-content: space-between;
       margin-top: 40px;
+      @media (max-width:644px) {
+        flex-direction: column-reverse;
+        gap: 30px 0;
+        align-items: center;
+      }
 
       .go-back-btn {
         display: flex;
@@ -328,7 +375,7 @@ body {
       margin-bottom: 10px;
       line-height: 150%;
       @media (max-width:500px) {
-      font-size: 20px;
+      font-size: 20 px;
     }
     }
 
